@@ -6,7 +6,7 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import logging
-import sys
+import os
 
 import redis
 import json
@@ -45,7 +45,7 @@ class RedisBasedPipeline(PipelineBase):
             redis_client.get('foo')
         except Exception as e:
             logger.critical(e)
-            sys.exit()
+            os._exit(-1)
         self.redis_client = redis_client
 
 
