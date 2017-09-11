@@ -25,7 +25,8 @@ class HuyaSpider(Spider):
     custom_settings = {
         'TOPN_POPULARITY_REDIS_KEY': 'HuyaSpider:TopNPopularity',
         'TOTAL_POPULARITY_REDIS_KEY': 'HuyaSpider:TotalPopularity',
-        'TOTAL_LIVE_SHOW_REDIS_KEY': 'HuyaSpider:TotalLiveShow'
+        'TOTAL_LIVE_SHOW_REDIS_KEY': 'HuyaSpider:TotalLiveShow',
+        'CLASSIFIED_POPULARITY_REDIS_KEY': 'HuyaSpider:ClassifiedPopularity',
     }
 
     start_urls = [

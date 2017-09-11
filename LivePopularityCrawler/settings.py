@@ -68,6 +68,7 @@ ITEM_PIPELINES = {
     'LivePopularityCrawler.pipelines.RedisTopNPopularityPipeline': 100,
     'LivePopularityCrawler.pipelines.RedisTotalPopularityPipeline': 101,
     'LivePopularityCrawler.pipelines.RedisTotalLiveShowPipeline': 102,
+    'LivePopularityCrawler.pipelines.RedisClassifiedPopularityPipeline': 103,
     #'LivePopularityCrawler.pipelines.LivepopularitycrawlerPipeline': 300,
 }
 

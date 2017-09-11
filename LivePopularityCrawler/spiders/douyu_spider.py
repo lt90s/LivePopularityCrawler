@@ -14,7 +14,8 @@ class DouyuSpider(Spider):
     custom_settings = {
         'TOPN_POPULARITY_REDIS_KEY': 'DouyuSpider:TopNPopularity',
         'TOTAL_POPULARITY_REDIS_KEY': 'DouyuSpider:TotalPopularity',
-        'TOTAL_LIVE_SHOW_REDIS_KEY': 'DouyuSpider:TotalLiveShow'
+        'TOTAL_LIVE_SHOW_REDIS_KEY': 'DouyuSpider:TotalLiveShow',
+        'CLASSIFIED_POPULARITY_REDIS_KEY': 'DouyuSpider:ClassifiedPopularity',
     }
 
     start_urls = [

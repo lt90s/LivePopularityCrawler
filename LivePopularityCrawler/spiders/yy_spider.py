@@ -11,9 +11,10 @@ class DouyuSpider(Spider):
     name = 'yy'
 
     custom_settings = {
-        'TOPN_POPULARITY_REDIS_KEY': 'YYSpider:TopNPopularity',
-        'TOTAL_POPULARITY_REDIS_KEY': 'YYSpider:TotalPopularity',
-        'TOTAL_LIVE_SHOW_REDIS_KEY': 'YYSpider:TotalLiveShow'
+        'TOPN_POPULARITY_REDIS_KEY': 'YySpider:TopNPopularity',
+        'TOTAL_POPULARITY_REDIS_KEY': 'YySpider:TotalPopularity',
+        'TOTAL_LIVE_SHOW_REDIS_KEY': 'YySpider:TotalLiveShow',
+        'CLASSIFIED_POPULARITY_REDIS_KEY': 'YySpider:ClassifiedP',
     }
 
     ZHANQI_DEFAULT_SIZE = '50'

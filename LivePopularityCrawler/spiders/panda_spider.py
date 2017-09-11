@@ -13,7 +13,8 @@ class DouyuSpider(Spider):
     custom_settings = {
         'TOPN_POPULARITY_REDIS_KEY': 'PandaSpider:TopNPopularity',
         'TOTAL_POPULARITY_REDIS_KEY': 'PandauSpider:TotalPopularity',
-        'TOTAL_LIVE_SHOW_REDIS_KEY': 'PandaSpider:TotalLiveShow'
+        'TOTAL_LIVE_SHOW_REDIS_KEY': 'PandaSpider:TotalLiveShow',
+        'CLASSIFIED_POPULARITY_REDIS_KEY': 'PandaSpider:ClassifiedPopularity',
     }
 
     start_urls = [

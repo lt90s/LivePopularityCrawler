@@ -13,7 +13,8 @@ class DouyuSpider(Spider):
     custom_settings = {
         'TOPN_POPULARITY_REDIS_KEY': 'ZhanqiSpider:TopNPopularity',
         'TOTAL_POPULARITY_REDIS_KEY': 'ZhanqiSpider:TotalPopularity',
-        'TOTAL_LIVE_SHOW_REDIS_KEY': 'ZhanqiSpider:TotalLiveShow'
+        'TOTAL_LIVE_SHOW_REDIS_KEY': 'ZhanqiSpider:TotalLiveShow',
+        'CLASSIFIED_POPULARITY_REDIS_KEY': 'ZhanqiSpider:ClassifiedPopularity',
     }
 
     ZHANQI_DEFAULT_SIZE = '50'
@@ -33,6 +34,7 @@ class DouyuSpider(Spider):
                     yield item
             self.logger.info('Crawling %s url %s' %(name, url))
             yield response.follow(url, wrap_callback)
+
 
     def parse_directory(self, response, name):
         url_template = response.css(

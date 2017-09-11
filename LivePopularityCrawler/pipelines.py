@@ -65,7 +65,7 @@ class RedisTopNPopularityPipeline(RedisBasedPipeline):
 
     def process_item(self, item, spider):
         if not self.duplicate_items(item):
-            json_item = json.dumps(item)
+            json_item = json.dumps(item, ensure_ascii=False)
             self.redis_client.zadd(self.topn_key, item['popularity'], json_item)
             if self.zset_size < self.topn:
                 self.zset_size += 1
@@ -122,6 +122,33 @@ class RedisTotalLiveShowPipeline(RedisBasedPipeline):
             spider.settings.get(
                 'TOTAL_LIVE_SHOW_REDIS_KEY', 'TotalLiveShow'),
             spider)
+
+
+class RedisClassifiedPopularityPipeline(RedisBasedPipeline):
+    '''Total popularity of every live class'''
+    def __init__(self, classified_key, spider):
+        super(RedisClassifiedPopularityPipeline, self).__init__(spider)
+        self.classified_key = classified_key
+        self.redis_client.delete(self.classified_key)
+
+    def process_item(self, item, spider):
+        if not self.duplicate_items(item):
+            self.redis_client.hincrby(
+                self.classified_key, item['class'], item['popularity'])
+
+        return item
+
+    @classmethod
+    def from_crawler(cls, spider):
+        name = spider.settings.get(
+                'CLASSIFIED_POPULARITY_REDIS_KEY', 'ClassifiedPopularity'),
+        print(name)
+        assert(name[0].startswith('Douyu'))
+        return cls(
+            spider.settings.get(
+                'CLASSIFIED_POPULARITY_REDIS_KEY', 'ClassifiedPopularity'),
+                spider)
+
 
 
 
