@@ -23,6 +23,8 @@ class PipelineBase(object):
         self.url_set = set()
 
     def duplicate_items(self, item):
+        if not item:
+            return True
         url = item['url']
         if url in self.url_set:
             return True
@@ -140,10 +142,6 @@ class RedisClassifiedPopularityPipeline(RedisBasedPipeline):
 
     @classmethod
     def from_crawler(cls, spider):
-        name = spider.settings.get(
-                'CLASSIFIED_POPULARITY_REDIS_KEY', 'ClassifiedPopularity'),
-        print(name)
-        assert(name[0].startswith('Douyu'))
         return cls(
             spider.settings.get(
                 'CLASSIFIED_POPULARITY_REDIS_KEY', 'ClassifiedPopularity'),
@@ -151,4 +149,22 @@ class RedisClassifiedPopularityPipeline(RedisBasedPipeline):
 
 
 
+class RedisClassifiedTopNPopularity(RedisBasedPipeline):
+    '''TopN Popularity of every live class'''
+    def __init__(self, key, spider):
+        super(RedisClassifiedPopularityPipeline, self).__init__(spider)
+        self.key = key
+        self.redis_client.delete(self.key)
 
+    def process_item(self, item, spider):
+        if self.duplicate_items(item):
+            return item
+        # self.key is a hash, each value in hash is a zset
+        return item
+
+    @classmethod
+    def from_crawler(cls, spider):
+        return cls(
+            spider.settings.get(
+                'CLASSIFIED_TOPN_POPULARITY_REDIS_KEY', 'ClassifiedTopNPopularity'),
+            spider)
