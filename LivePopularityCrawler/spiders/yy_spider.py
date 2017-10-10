@@ -14,7 +14,7 @@ class DouyuSpider(Spider):
         'TOPN_POPULARITY_REDIS_KEY': 'YySpider:TopNPopularity',
         'TOTAL_POPULARITY_REDIS_KEY': 'YySpider:TotalPopularity',
         'TOTAL_LIVE_SHOW_REDIS_KEY': 'YySpider:TotalLiveShow',
-        'CLASSIFIED_POPULARITY_REDIS_KEY': 'YySpider:ClassifiedP',
+        'CLASSIFIED_POPULARITY_REDIS_KEY': 'YySpider:ClassifiedPopularity',
     }
 
     ZHANQI_DEFAULT_SIZE = '50'
