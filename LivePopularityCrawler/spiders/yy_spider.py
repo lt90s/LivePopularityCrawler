@@ -17,8 +17,6 @@ class DouyuSpider(Spider):
         'CLASSIFIED_POPULARITY_REDIS_KEY': 'YySpider:ClassifiedPopularity',
     }
 
-    ZHANQI_DEFAULT_SIZE = '50'
-    ZHANQI_START_PAGE = '1'
     start_urls = [
         'http://www.yy.com'
     ]
@@ -115,8 +113,12 @@ class DouyuSpider(Spider):
             try:
                 item['class'] = room['newGameName']
             except: #do not handle exception further, let it fail
-                item['class'] = room['desc']
-            item['title'] = room.get('title', 'no name')
+                item['class'] = self.subBiz2class(room['subBiz'])
+            if item['class'] == u'绝地枪神':
+                item['class'] = u'绝地求生'
+
+            item['title'] = room.get('title', None) or\
+                    room.get('desc') or item['nick']
             try:
                 p = room['online']
             except:
@@ -128,3 +130,17 @@ class DouyuSpider(Spider):
             p = float(p) * scale
             item['popularity'] = int(p)
             yield item
+
+    def subBiz2class(self, subBiz):
+        mapping = {
+            'lol': u'英雄联盟',
+            'lvyou': u'旅游',
+            'minecraft': u'我的世界',
+            'dance': u'热舞',
+            'glory': u'王者荣耀',
+            'pop': u'唱歌',
+            'girl': u'女神',
+            'idx': u'喊麦(WTF)',
+            'nj': u'户外',
+        }
+        return mapping.get(subBiz) or subBiz
